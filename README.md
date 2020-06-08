@@ -20,3 +20,5 @@ https://www.virustotal.com/gui/file/3afd4b328eb1cef02d49276eace8520e794690baa30d
 
 Bans:<br>
 Some MMORPGs don't allow the use of bots and ban your account when one is being used. Please do not use Clickz0r in such games. If you harm any terms of service, it is your own responsibility.<br>Please see the forum for user experiences about supported MMORPGs.
+
+<img src="https://i.ibb.co/q5RpcBb/Unbenannt.png"></img>
