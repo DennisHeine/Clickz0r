@@ -1,5 +1,5 @@
 # Clickz0r
-Clcikz0r is a generic MMORPG rotation bot with profile support.
+Clikz0r is a generic MMORPG rotation bot with profile support.
 
 Usage:
 
