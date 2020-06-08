@@ -10,7 +10,7 @@ Afterwards move the mouse to another position and wait 3 seconds (The program bu
 
 To start/stop, press the 'F' key.
 
-Attention! Change the filename of the executable to prevent detection.
+Attention! Change the filename of the executable to prevent false positives.
 
 Support/Profiles: https://clickz0r.freeforums.net/
 
