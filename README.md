@@ -8,7 +8,7 @@ Use 'Set Pixel' to define the position of the spell icon in your game.<br>
 Move the mousecursor to the position that should be monitored. Then, press F11 to set the pixel.<br>
 Then move the mouse to another position and wait 3 seconds (The program buttons will become active again)
 
-To Start/Stop, press the 'F' key.
+To start/stop, press the 'F' key.
 
 Attention! Change the filename of the executable to prevent detection.
 
