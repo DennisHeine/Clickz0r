@@ -15,4 +15,4 @@ Attention! Change the filename of the executable to prevent detection.
 Support/Profiles: https://clickz0r.freeforums.net/
 
 False Positives:
-Some virus programs are detecting bots as viruses. Please add theh program to your exclusion list in this case.
+Some virus programs are detecting bots as viruses. Please add the program to your exclusion list in this case.
