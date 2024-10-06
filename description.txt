@@ -1,0 +1,48 @@
+https://www.paypal.com/ncp/payment/7KCVT2UEFPTYE
+https://drive.google.com/drive/folders/1jjXRt-xaBhFBnXjC3YqZvYKHFEss0I5v?usp=sharing
+clickz0r123
+
+
+CLickz0r: A Pixel Based Rotation Bot
+
+Clickz0r is a simple pixel based rotation bot for MMORPGs.
+
+Features:
+-Advanced cloaking techniques like random window sizes, exe file pumping, decompilation protection and more.
+-Compatible with most MMORPGs
+-Easy to use
+-One time payment with lifetime license
+
+
+Usage:
+-Start Clickz0 (WindowsFormsApp1.exe). The exe file will be renamed.
+-Enter a name for the button and select the key to be pressed (0-9)
+-Click the "Set" button
+-Focus the game window
+-Move your mouse to the pixel you want to be monitored. 
+ This will most likely be one of the first pixels left of the middle of the button and a few pixels below the top of the button.
+ Thus it will detect the cooldown.
+-Hit the "F11" key and wait a few seconds
+-Focus the Clickz0r app window
+-Click "Add"
+
+Now you can get back into the game and toggle the bot using the "F" key.
+
+Disclaimer: Even though Clickz0r has got a verry low detection rate, some anticheat programs might detect it.
+Only use it on accounts that you can afford to loose!
+In case of an account ban, please write a comment to this posting so I can take a look at it.
+
+Payment:
+You can get Clickz0r for a one time fee of 11,89EUR using Paypal.
+A hardware ID will be generated and stored in "hwid.txt" on the first start of the app.
+Please don't forget to enter the hardware ID into the corresponding field during ordering.
+The license file will be sent to the mail address of your paypal account within 24h.
+
+Payment Link:
+https://www.paypal.com/ncp/payment/7KCVT2UEFPTYE
+
+Clickz0r Download:
+https://drive.google.com/drive/folders/1jjXRt-xaBhFBnXjC3YqZvYKHFEss0I5v?usp=sharing
+
+Password for the zip file:
+clickz0r123
