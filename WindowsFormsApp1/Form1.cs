@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -20,8 +22,41 @@ namespace WindowsFormsApp1
             this.Text = RandomString(8);
             InitializeComponent();
 
-        }
+            if(!License.Status.Licensed)
+            {
+                MessageBox.Show(this,"A hardware ID file called hwid.txt has been created in the appliaction directory.\r\n Please send it to license@clickz0r.online together with your registration mail address to get a valid license file. ");
+                File.WriteAllText("hwid.txt",License.Status.HardwareID);    
+                Process.GetCurrentProcess().Kill(); 
+            }
+            
+                if(Process.GetProcessesByName("WindowsFormsApp1").Length == 0) 
+                    //Process.GetProcessesByName("WindowsFormsApp1")[0].Kill();
+                File.Delete(".\\WindowsFormsApp1.exe");
+            
+            if (File.Exists(".\\WindowsFormsApp1.exe"))
+            {
+                byte[] file = File.ReadAllBytes(".\\WindowsFormsApp1.exe");
+                int pumpedAdd = new Random().Next(0, 1000000);
+                byte[] newFile=new byte[file.Length + pumpedAdd];
+                for (int i = 0; i < file.Length;i++) 
+                {
+                    newFile[i] = file[i];
+                }
 
+                for(int i = file.Length-1; i < file.Length+pumpedAdd;i++)
+                {
+                    newFile[i] = (byte)new Random().Next(0, 255);
+                }
+                String rnd = RandomString(8);
+                File.WriteAllBytes(".\\" + rnd + ".exe",newFile);
+                
+                Process.Start(".\\" + rnd + ".exe");
+                Process.GetCurrentProcess().Kill(); 
+            }
+            
+            
+        }
+        
         #region Declarations
         Hook KeyboardHook = null;
         private bool isRunning;
@@ -35,6 +70,12 @@ namespace WindowsFormsApp1
 
         private static Random random = new Random();
 
+
+        [DllImport("user32.dll")]
+        static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        const int GWL_EXSTYLE = -20;
+        const int WS_EX_TOOLWINDOW = 0x00000080;
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
@@ -77,50 +118,55 @@ namespace WindowsFormsApp1
         {
 
             items.Add("0", new itemData() { text = "0", key = WindowsInput.Native.VirtualKeyCode.VK_0 });
-            cbKey.Items.Add(items["0"]);
+            comboBox1.Items.Add(items["0"]);
             items.Add("1", new itemData() { text = "1", key = WindowsInput.Native.VirtualKeyCode.VK_1 });
-            cbKey.Items.Add(items["1"]);
+            comboBox1.Items.Add(items["1"]);
             items.Add("2", new itemData() { text = "2", key = WindowsInput.Native.VirtualKeyCode.VK_2 });
-            cbKey.Items.Add(items["2"]);
+            comboBox1.Items.Add(items["2"]);
             items.Add("3", new itemData() { text = "3", key = WindowsInput.Native.VirtualKeyCode.VK_3 });
-            cbKey.Items.Add(items["3"]);
+            comboBox1.Items.Add(items["3"]);
             items.Add("4", new itemData() { text = "4", key = WindowsInput.Native.VirtualKeyCode.VK_4 });
-            cbKey.Items.Add(items["4"]);
+            comboBox1.Items.Add(items["4"]);
             items.Add("5", new itemData() { text = "5", key = WindowsInput.Native.VirtualKeyCode.VK_5 });
-            cbKey.Items.Add(items["5"]);
+            comboBox1.Items.Add(items["5"]);
             items.Add("6", new itemData() { text = "6", key = WindowsInput.Native.VirtualKeyCode.VK_6 });
-            cbKey.Items.Add(items["6"]);
+            comboBox1.Items.Add(items["6"]);
             items.Add("7", new itemData() { text = "7", key = WindowsInput.Native.VirtualKeyCode.VK_7 });
-            cbKey.Items.Add(items["7"]);
+            comboBox1.Items.Add(items["7"]);
             items.Add("8", new itemData() { text = "8", key = WindowsInput.Native.VirtualKeyCode.VK_8 });
-            cbKey.Items.Add(items["8"]);
+            comboBox1.Items.Add(items["8"]);
             items.Add("9", new itemData() { text = "9", key = WindowsInput.Native.VirtualKeyCode.VK_9 });
-            cbKey.Items.Add(items["9"]);
+            comboBox1.Items.Add(items["9"]);
 
-            KeyboardHook = new Hook("Global Action Hook");
+            KeyboardHook = new Hook(RandomString(3));
             KeyboardHook.KeyUpEvent += KeyDown;
+
+            Width += new Random().Next(0, 50);
+            Height += new Random().Next(0, 50);
+
+            SetWindowLong(this.Handle, GWL_EXSTYLE, WS_EX_TOOLWINDOW);
         }
 
 
         private void bnAdd_Click(object sender, EventArgs e)
         {
-            if (txtDescription.Text != "" && !macros.ContainsKey(txtDescription.Text))
+            if (textBox1.Text != "" && !macros.ContainsKey(textBox1.Text))
             {
-                int idx = listBox1.Items.Add(txtDescription.Text);
+                int idx = listBox1.Items.Add(textBox1.Text);
                 Dictionary<String, String> values = new Dictionary<string, string>();
-                values.Add("macro", cbKey.SelectedItem.ToString());
+                values.Add("1", comboBox1.SelectedItem.ToString());
 
-                values.Add("pixelcolorR", pixelColor.R.ToString());
-                values.Add("pixelcolorG", pixelColor.G.ToString());
-                values.Add("pixelcolorB", pixelColor.B.ToString());
-                values.Add("pixelX", pixelPoint.X.ToString());
-                values.Add("pixelY", pixelPoint.Y.ToString());
+                values.Add("2", pixelColor.R.ToString());
+                values.Add("3", pixelColor.G.ToString());
+                values.Add("4", pixelColor.B.ToString());
+                values.Add("5", pixelPoint.X.ToString());
+                values.Add("6", pixelPoint.Y.ToString());
 
-                macros.Add(txtDescription.Text, values);
+                macros.Add(textBox1.Text, values);
 
-                bnAdd.Enabled = false;
-                txtDescription.Text = "";
-                cbKey.SelectedIndex = -1;
+                button3.Enabled = false;
+                textBox1.Text = "";
+                comboBox1.SelectedIndex = -1;
             }
             else
             {
@@ -131,15 +177,15 @@ namespace WindowsFormsApp1
 
         private void bnStart_Click(object sender, EventArgs e)
         {
-            if (bnStart.Text == "Start")
+            if (button4.Text == "Start")
             {
                 isRunning = true;
                 backgroundWorker1.RunWorkerAsync();
-                bnStart.Text = "Stop";
+                button4.Text = "Stop";
             }
             else
             {
-                bnStart.Text = "Start";
+                button4.Text = "Start";
                 isRunning = false;
             }
         }
@@ -152,12 +198,12 @@ namespace WindowsFormsApp1
                 for (int i = 0; i < listBox1.Items.Count; i++)
                 {
                     Dictionary<String, String> d = macros[listBox1.Items[i].ToString()];
-                    Point p = new Point(int.Parse(d["pixelX"]), int.Parse(d["pixelY"]));
-                    int R = int.Parse(d["pixelcolorR"]);
-                    int G = int.Parse(d["pixelcolorG"]);
-                    int B = int.Parse(d["pixelcolorB"]);
+                    Point p = new Point(int.Parse(d["5"]), int.Parse(d["6"]));
+                    int R = int.Parse(d["2"]);
+                    int G = int.Parse(d["3"]);
+                    int B = int.Parse(d["4"]);
 
-                    String macro = d["macro"];
+                    String macro = d["1"];
                     if (checkPixel(p, R, G, B))
                     {
                         System.Threading.Thread.Sleep(RandomNumber(300, 700));
@@ -182,7 +228,7 @@ namespace WindowsFormsApp1
         private void bnPixel_Click(object sender, EventArgs e)
         {
             doHook = true;
-            bnPixel.Enabled = false;
+            button2.Enabled = false;
         }
         private void KeyDown(KeyboardHookEventArgs e)
         {
@@ -197,22 +243,22 @@ namespace WindowsFormsApp1
                 {
                     pixelColor = GetColorAt(lpPoint.X, lpPoint.Y);
                 } while ((int)pixelColor.R == 255 && (int)pixelColor.B == 255 && (int)pixelColor.G == 255);
-                bnPixel.Enabled = true;
+                button2.Enabled = true;
                 doHook = false;
-                bnAdd.Enabled = true;
+                button3.Enabled = true;
             }
 
             if (e.Key == Keys.F)
             {
-                if (bnStart.Text == "Start")
+                if (button4.Text == "Start")
                 {
                     isRunning = true;
                     backgroundWorker1.RunWorkerAsync();
-                    bnStart.Text = "Stop";
+                    button4.Text = "Stop";
                 }
                 else
                 {
-                    bnStart.Text = "Start";
+                    button4.Text = "Start";
                     isRunning = false;
                 }
             }
@@ -295,9 +341,20 @@ namespace WindowsFormsApp1
 
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(this, "Usage:\r\n\r\nPress F11 to set the pixel after pressing 'Set Pixel'.\r\nTo Start/Stop, press the 'F' key.\r\n\r\nAttention! Change the filename of the executable to prevent detection.", "Help");
+            MessageBox.Show(this, "Usage:\r\n\r\nPress F11 to set the pixel of a button after pressing 'Set'.\r\nTo Start/Stop, press the 'F' key.\r\n\r\nAttention! Change the filename of the executable to prevent detection.", "Help");
         }
         #endregion
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 ;
